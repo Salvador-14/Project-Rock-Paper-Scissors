@@ -50,23 +50,19 @@ function playRound() {
 }
 
 function game() {
-    //funcion no esta sumando el resultado al usuario o la computadora, siempre quedan en 1 - 1
-
-
-    let userWins;
-    let computerWins;
+    let userWins = 0;
+    let computerWins = 0;
 
     for (let i = 0; i < 5; i++) {
         let result = playRound();
         
-        if (result === 'machine') computerWins =+ 1;
-        if (result === 'user') userWins =+ 1;
+        if (result === 'machine') computerWins += 1;
+        if (result === 'user') userWins += 1;
         if (result === 'tie') continue;
         if (!result){
             i = -1;
             alert('Invalid option try again')
         }
-
      }
 
     if (userWins > computerWins) alert('You win! Congratulations') 
