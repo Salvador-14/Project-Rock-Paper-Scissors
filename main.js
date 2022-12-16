@@ -1,74 +1,56 @@
-game();
-
 function getComputerChoice() {
     let words = ['rock', 'paper', 'scissors'];
     return words[Math.floor(Math.random() * words.length)];
-
 }
 
-function playRound() {
-    
-    let playerSelection = prompt("Choose: rock, paper or scissors?").toLowerCase();
-    playerSelection = playerSelection.trim();
+function playRound(playerSelection) {
     let computerSelection = getComputerChoice();
-
     console.log(`User: ${playerSelection}, Machine: ${computerSelection}`)
 
     if (playerSelection === 'rock' && computerSelection === 'scissors'){
-        console.log('You Win! Rock beats scissors');
-        return 'user';
+        divRoundResult.textContent = 'You Win! Rock beats scissors';
+        game('user');
     } else if (computerSelection === 'rock' && playerSelection === 'scissors'){
-        console.log('You Lose! Rock beats scissors');
-        return 'machine';
+        divRoundResult.textContent = 'You Lose! Rock beats scissors';
+        game('machine');
     }
 
     if (playerSelection === 'paper' && computerSelection === 'rock'){
-        console.log('You Win! Paper beats rock');
-        return 'user';
+        divRoundResult.textContent = 'You Win! Paper beats rock';
+        game('user');
     } else if (computerSelection === 'paper' && playerSelection === 'rock'){
-        console.log('You Lose! Paper beats rock');
-        return 'machine';
+        divRoundResult.textContent = 'You Lose! Paper beats rock';
+        game('machine');
     }
 
     if (computerSelection === 'paper' && playerSelection === 'scissors'){
-        console.log('You Win! Scissors beats paper');
-        return 'user';
+        divRoundResult.textContent = 'You Win! Scissors beats paper';
+        game('user');
     } else if (playerSelection === 'paper' && computerSelection === 'scissors'){
-        console.log('You Lose! Scissors beats paper');
-        return 'machine';
+        divRoundResult.textContent = 'You Lose! Scissors beats paper';
+        game('machine');
     } 
  
     if (playerSelection === computerSelection){
-        console.log('It\'s a tie!');
-        return 'tie';
-    }
-
-    if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
-        console.log("Invalid option");
+        divRoundResult.textContent = 'It\'s a tie!';
+        game('tie');
     }
 
 }
 
-function game() {
-    let userWins = 0;
-    let computerWins = 0;
+let userWins = '';
+let computerWins = '';
+function game(result) {
+    if (result === 'machine') computerWins++;
+    if (result === 'user') userWins++;
 
-    for (let i = 0; i < 5; i++) {
-        let result = playRound();
-        
-        if (result === 'machine') computerWins += 1;
-        if (result === 'user') userWins += 1;
-        if (result === 'tie') continue;
-        if (!result){
-            i = -1;
-            alert('Invalid option try again')
-        }
-     }
+    currentScore.textContent = `User Wins: ${userWins}, Computer Wins: ${computerWins}`;
 
-    if (userWins > computerWins) alert('You win! Congratulations') 
-    else if (computerWins > userWins) alert('You Lose! Good luck next time') 
-    else if (userWins === computerWins) alert('It\'s a tie!');
-    console.log(userWins);
-    console.log(computerWins);
+    if (userWins === 5 || computerWins === 5) {
+        if (userWins > computerWins) divRoundResult.textContent = 'You won the game! Congratulations';
+        else if (computerWins > userWins) divRoundResult.textContent = 'You lost the game! Good luck next time';
+        userWins = 0;
+        computerWins = 0;
+    }
+
 }
-
